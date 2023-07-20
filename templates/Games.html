@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Games.css') }}">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<header>
+  <nav class="navbar">
+    <div class="burger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <ul class="menu" onclick="closeMenu()">
+      <li><a href="{{ url_for('home') }}" onclick="closeMenu()">Home</a></li>
+      <li><a href="{{ url_for('game', category='all') }}" onclick="closeMenu()">Games</a></li>
+      <li><a href="{{ url_for('about') }}" onclick="closeMenu()">About</a></li>
+      <li><a href="{{ url_for('contact') }}" onclick="closeMenu()">Contact</a></li>
+    </ul>
+    <span class="close"></span>
+  </nav>
+  <div class="overlay"></div>
+  <div class="header">
+    <div class="Logo">
+      <img src="{{ url_for('static', filename='images/gamesoft-logo-header-1.png') }}" alt="logo">
+      <div class="social-links">
+        <a href="https://www.facebook.com/GoGamesoft/"><i class="bx bxl-facebook-circle"></i></a>
+        <a href="https://twitter.com/gamesoft"><i class="bx bxl-twitter"></i></a>
+        <a href="https://www.instagram.com/gogamesoft/"><i class="bx bxl-instagram"></i></a>
+        <a href="https://www.pinterest.co.uk/gamesoft/"><i class="bx bxl-pinterest-alt"></i></a>
+      </div>
+
+      <div class="btn-box">
+        {% if 'username' in session %}
+        <a href="{{ url_for('profil') }}" class="profil">{{ session['username'] }}</a>
+        {% if session['group'] == 'admin'  or session['group'] == 'redacchef' or session['group'] == 'redac' %}
+        <a href="{{ url_for('admin') }}" class="admin">Admin</a>
+        {% endif %}
+        <form action="{{ url_for('logout') }}" method="POST">
+          <button class="Login" type="submit">Déconnexion</button>
+        </form>
+        {% else %}
+        <!-- L'utilisateur n'est pas connecté, afficher le bouton de connexion -->
+        <a href="{{ url_for('login') }}" class="Login">login</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+<body>
+
+  <div class="container">
+    <nav class="navbar-2">
+      <a href="{{ url_for('game', genre='all') }}" id="all">All</a>
+      <a href="{{ url_for('game', genre='action') }}" id="action">Action</a>
+      <a href="{{ url_for('game', genre='adventure') }}" id="adventure">Adventure</a>
+      <a href="{{ url_for('game', genre='rpg') }}" id="rpg">RPG</a>
+      <a href="{{ url_for('game', genre='simulation') }}" id="simulation">Simulation</a>
+      <a href="{{ url_for('game', genre='strategy') }}" id="strategy">Strategy</a>
+      <a href="{{ url_for('game', genre='sports') }}" id="sports">Sports</a>
+      <a href="{{ url_for('game', genre='racing') }}" id="racing">Racing</a>
+      <a href="{{ url_for('game', genre='moba') }}" id="moba">MOBA</a>
+      <a href="{{ url_for('game', genre='arcade') }}" id="arcade">Arcade</a>
+    </nav>
+    <div class="game-container"></div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
+  <script src="{{ url_for('static', filename='JS/game-cards.js') }}"></script>
+</body>
+
+</html>

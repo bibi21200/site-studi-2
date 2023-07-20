@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='contact.css') }}">
+   <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">-->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<header>
+    <nav class="navbar">
+        <div class="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <ul class="menu" onclick="closeMenu()">
+          <li><a href="{{ url_for('home') }}" onclick="closeMenu()">Home</a></li>
+          <li><a href="{{ url_for('game') }}" onclick="closeMenu()">Games</a></li>
+          <li><a href="{{ url_for('about') }}" onclick="closeMenu()">About</a></li>
+          <li><a href="{{ url_for('contact') }}" onclick="closeMenu()">Contact</a></li>
+        </ul>        
+        <span class="close"></span>
+      </nav>
+      <div class="overlay"></div>
+      <nav class="header">
+          <nav class="Logo">
+            <img href="home.html" src="{{ url_for('static', filename='images/gamesoft-logo-header-1.png') }}"alt="">
+            <div class="social-links">
+              <a href="https://www.facebook.com/GoGamesoft/"><i class="bx bxl-facebook-circle"></i></a>
+              <a href="https://twitter.com/gamesoft"><i class="bx bxl-twitter" ></i></a>
+              <a href="https://www.instagram.com/gogamesoft/"><i class="bx bxl-instagram" ></i></a>
+              <a href="https://www.pinterest.co.uk/gamesoft/"><i class="bx bxl-pinterest-alt" ></i></a>
+            </div>
+            <div class="btn-box">
+              <a href="#" class="Login">login</a>
+            </div>
+          </nav>
+      </nav>
+</header>
+
+<body>
+	<section class="contact-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 order-2 order-lg-1">
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" placeholder="Votre NOM" name="name">
+                        <input type="text" placeholder="Votre e-mail" name="email">
+                        <input type="text" placeholder="Sujet" name="subject">
+                        <textarea placeholder="Message" name="message"></textarea>
+                        <button class="btn-sender" type="button" id="submitBtn">Envoyer le message</button>
+                    </form>
+				</div>
+				<div class="col-lg-5 order-1 order-lg-2 contact-text text-dark">
+					<h3></h3>
+					<p></p>
+					<div class="cont-info">
+						<div class="ci-icon"><img src="{{ url_for('static', filename='images/icons/location.png') }}" alt=""></div>
+						<div class="ci-text">Paris</div>
+					</div>
+					<div class="cont-info">
+						<div class="ci-icon"><img src="{{ url_for('static', filename='images/icons/phone.png') }}" alt=""></div>
+						<div class="ci-text">01.52.35.98.48</div>
+					</div>
+					<div class="cont-info">
+						<div class="ci-icon"><img src="{{ url_for('static', filename='images/icons/mail.png') }}" alt=""></div>
+						<div class="ci-text">gamesoft@contact.com</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Contact page end-->
+
+
+	<!-- Newsletter section -->
+	<section class="newsletter-section">
+        <div class="container">
+            <h2>Abonnez-vous à notre newsletter</h2>
+            <form class="newsletter-form">
+                <input type="text" id="email" placeholder="ENTRER VOTRE EMAIL">
+                <button class="btn-sender" id="subscribe-btn">s'abonner <img src="{{ url_for('static', filename='images/icons/double-arrow.png') }}" alt="#"/></button>
+            </form>
+        </div>
+    </section>
+	<footer>
+		<div class="footer">
+		  <div class="footer-content">
+			<div class="footer-section about">
+			  <h1 class="logo-text"><span>Game</span>soft</h1>
+			  <p>
+				Copiright &copy; tous droits réserver; <br> <a href="https://www.facebook.com/kevin.brotons.7/">Kevin brotons</a> <br>
+			  </p>
+			  </div>
+			  </div>
+			  <div class="contact">
+				<h3>Contact</h3>
+				<span class="phone"><i class="bx bxs-phone"></i> &nbsp; 06 35 38 38 89</span>
+				<span class="mail"><i class="bx bxs-envelope"></i> &nbsp; kevinbrotons@outlook.fr </span>
+			  </div>
+			  </div>
+	  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
+</body>
+
+</html>

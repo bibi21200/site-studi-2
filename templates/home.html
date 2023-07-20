@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <title>Examen ECF</title>
+</head>
+<header>
+    <nav class="navbar">
+        <div class="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <ul class="menu" onclick="closeMenu()">
+          <li><a href="{{ url_for('homepage') }}" onclick="closeMenu()">Home</a></li>
+          <li><a href="{{ url_for('game') }}" onclick="closeMenu()">Games</a></li>
+          <li><a href="{{ url_for('about') }}" onclick="closeMenu()">About</a></li>
+          <li><a href="{{ url_for('contact') }}" onclick="closeMenu()">Contact</a></li>
+        </ul>        
+        <span class="close"></span>
+      </nav>
+      <div class="overlay"></div>
+      <div class="header">
+          <div class="Logo">
+            <img src="{{ url_for('static', filename='images/gamesoft-logo-header-1.png') }}" alt="logo">
+            <div class="social-links">
+              <a href="https://www.facebook.com/GoGamesoft/"><i class="bx bxl-facebook-circle"></i></a>
+              <a href="https://twitter.com/gamesoft"><i class="bx bxl-twitter" ></i></a>
+              <a href="https://www.instagram.com/gogamesoft/"><i class="bx bxl-instagram" ></i></a>
+              <a href="https://www.pinterest.co.uk/gamesoft/"><i class="bx bxl-pinterest-alt" ></i></a>
+            </div>
+
+            <div class="btn-box">
+              {% if 'username' in session %}
+                  <a href="{{ url_for('profil') }}" class="profil">{{ session['username'] }}</a>
+                  {% if session['group'] == 'admin'  or session['group'] == 'redacchef' or session['group'] == 'redac' %}
+                            <a href="{{ url_for('admin') }}" class="admin">Admin</a>
+                        {% endif %}
+                  <form  action="{{ url_for('logout') }}" method="POST">
+                      <button class="Login" type="submit">Déconnexion</button>
+                  </form>
+              {% else %}
+                  <!-- L'utilisateur n'est pas connecté, afficher le bouton de connexion -->
+                  <a href="{{ url_for('login') }}" class="Login">login</a>
+              {% endif %}
+          </div>
+           
+            </div>
+          </div>
+      </div>
+</header>
+      
+
+
+
+
+<body>
+  
+  <section class="container">
+    <div class="head">
+      <h1>CROYEZ AU POUVOIR <br> DU JEU</h1>
+      <p>Chez Gamesoft, nous sommes des joueurs de bout en bout. Nous embrassons le processus créatif et nous croyons au jeu, point final. Nous croyons au pouvoir du jeu...
+
+        Le jeu peut apporter du plaisir et de la joie à tout le monde, il peut vous alléger et vous faire sourire. Le jeu rend les loisirs facilement accessibles et accessibles à tous.
+        Et n'avons-nous pas tous besoin d'une dose quotidienne de loisirs !
+        
+        Le jeu peut élargir votre réalité et faire travailler votre imagination - il vous suffit de vous téléporter dans l'univers du jeu !
+        
+        Nous pensons que la gratification ultime pour un studio de jeu est de créer des jeux incroyables avec un attrait universel qui permettent aux joueurs de faire tout ce qui précède - c'est notre mission dans la vie !</p>
+    </div>
+    
+    <div class="carousel">
+      <div class="glide">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <li class="glide__slide"><img src="https://www.gamesoft.com/wp-content/uploads/2023/01/gamesoft-slider-bubble-shooter1.png" alt="image 1"></li>
+            <li class="glide__slide"><img src="https://img.igen.fr/2018/4/macgpic-1523048698-253688829403566-sc-jpt.jpg" alt="image 2"></li>
+            <li class="glide__slide"><img src="https://yt3.googleusercontent.com/1hGbocHjHEEawO4sxVUHHj8GUG617ejsHYMrUoj7cjWvLeXXksvnFR030HeWKHUo_x4DVzQR1Uc=s900-c-k-c0x00ffffff-no-rj" alt="image 3"></li>
+            <li class="glide__slide"><img src="images/inner_about_img01.png" alt="image 4"></li>
+          </ul>
+        </div>
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--prev" data-glide-dir="<" onclick="glidePrev()"><i class="bx bx-skip-previous" ></i></button>
+          <button class="glide__arrow glide__arrow--next" data-glide-dir=">" onclick="glideNext()"><i class="bx bx-skip-next"></i></button>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+  
+  <section class="news">
+    <h1>Info a la Une</h1>
+    <p>Découvrez les dernières nouvelles sur les jeux, les critiques, les soluces et les avant-premières <br> des jeux à venir sur Gamesoft Buzz. Gardez une longueur d'avance avec nous.</p>
+    <ul class="centent">
+      <article class="news-content">
+        <h2>TITRE DU JEU</h2>
+        <img src="{{ url_for('static', filename='images/call1.png') }}" alt="logo">
+        <h3>Titre Info</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Cum voluptatem quisquam asperiores amet totam
+           a nam libero labore dolor debitis quasi eius quis consequuntur enim 
+           voluptates illum, recusandae blanditiis dolore?</p>
+           <input type="button" value="Read More">
+           <button><i class="bx bx-share-alt"></i>Share</button>
+      </article>
+      <article class="news-content">
+        <h2>TITRE DU JEU</h2>
+        <img src="{{ url_for('static', filename='images/battle.png') }}" alt="logo">
+        <h3>Titre Info</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Cum voluptatem quisquam asperiores amet totam
+           a nam libero labore dolor debitis quasi eius quis consequuntur enim voluptates 
+           illum, recusandae blanditiis dolore?</p>
+           <input type="button" value="Read More">
+           <button><i class="bx bx-share-alt"></i>Share</button>
+      </article>
+      <article class="news-content">
+        <h2>TITRE DU JEU</h2>
+        <img src="{{ url_for('static', filename='images/undawn.png') }}" alt="logo">
+        <h3>Titre Info</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Cum voluptatem quisquam asperiores amet totam a 
+          nam libero labore dolor debitis quasi eius quis consequuntur enim 
+          voluptates illum, recusandae blanditiis dolore?</p>
+          <input type="button" value="Read More">
+          <button><i class="bx bx-share-alt"></i>Share</button>
+      </article>
+    </ul>
+  </section>
+  
+  
+  
+  <footer>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-section about">
+          <h1 class="logo-text"><span>Game</span>soft</h1>
+          <p>
+            Copiright &copy; tous droits réserver; <br> <a href="https://www.facebook.com/kevin.brotons.7/">Kevin Brotons</a> <br>
+          </p>
+          </div>
+          </div>
+          <div class="contact">
+            <h3>Contact</h3>
+            <span class="phone"><i class="bx bxs-phone"></i> &nbsp; 06 35 38 38 89</span>
+            <span class="mail"><i class="bx bxs-envelope"></i> &nbsp; kevinbrotons@outlook.fr </span>
+          </div>
+          </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='JS/carousel.js') }}"></script>
+  <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
+</body>
+
+
+
+</html>
+
+  

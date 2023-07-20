@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='About.css') }}">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<header>
+  <nav class="navbar">
+      <div class="burger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <ul class="menu" onclick="closeMenu()">
+        <li><a href="{{ url_for('home') }}" onclick="closeMenu()">Home</a></li>
+        <li><a href="{{ url_for('game') }}" onclick="closeMenu()">Games</a></li>
+        <li><a href="{{ url_for('about') }}" onclick="closeMenu()">About</a></li>
+        <li><a href="{{ url_for('contact') }}" onclick="closeMenu()">Contact</a></li>
+      </ul>        
+      <span class="close"></span>
+    </nav>
+    <div class="overlay"></div>
+    <div class="header">
+        <div class="Logo">
+          <img href="home.html" src="{{ url_for('static', filename='images/gamesoft-logo-header-1.png') }}"alt="">
+          <div class="social-links">
+            <a href="https://www.facebook.com/GoGamesoft/"><i class="bx bxl-facebook-circle"></i></a>
+            <a href="https://twitter.com/gamesoft"><i class="bx bxl-twitter" ></i></a>
+            <a href="https://www.instagram.com/gogamesoft/"><i class="bx bxl-instagram" ></i></a>
+            <a href="https://www.pinterest.co.uk/gamesoft/"><i class="bx bxl-pinterest-alt" ></i></a>
+          </div>
+
+          <div class="btn-box">
+            {% if 'username' in session %}
+                <a href="{{ url_for('profil') }}" class="profil">{{ session['username'] }}</a>
+                {% if session['group'] == 'admin'  or session['group'] == 'redacchef' or session['group'] == 'redac' %}
+                          <a href="{{ url_for('admin') }}" class="admin">Admin</a>
+                      {% endif %}
+                <form  action="{{ url_for('logout') }}" method="POST">
+                    <button class="Login" type="submit">Déconnexion</button>
+                </form>
+            {% else %}
+                <!-- L'utilisateur n'est pas connecté, afficher le bouton de connexion -->
+                <a href="{{ url_for('login') }}" class="Login">login</a>
+            {% endif %}
+        </div>
+         
+          </div>
+        </div>
+    
+</header>
+<body>
+  
+  <div class="container">
+        <section class="content">
+            <h1 class="logo-text"><span>Game</span>soft</h1>
+            <p>Gamesoft est un studio de développement de jeux vidéo basé à Paris, en France. Nous sommes une équipe de développeurs de jeux passionnés, expérimentés et talentueux qui se sont réunis pour créer des jeux de haute qualité avec un attrait universel. Nous sommes fiers de notre capacité à créer des jeux qui sont amusants à jouer, beaux à regarder et extrêmement accessibles. Nous sommes fiers de notre capacité à créer des jeux qui sont amusants à jouer, beaux à regarder et extrêmement accessibles. Nous sommes fiers de notre capacité à créer des jeux qui sont amusants à jouer, beaux à regarder et extrêmement accessibles.</p>
+            <img src="{{url_for('static',filename='images/gamesoft.png')}}" alt="">
+                </section>
+        <section class="content">
+          <h2 class="logo-text"><span>Notre</span>-mission</h2>
+          <p>Notre mission est de créer des jeux incroyables avec un attrait universel qui permettent aux joueurs de faire tout ce qui précède - c'est notre mission dans la vie !</p>
+          <img src="{{url_for('static',filename='images/motion.png')}}" alt="">
+        </section>
+        <section class="content">
+          <h2 class="logo-text"><span>Notre</span>-vision</h2>
+          <p>Notre vision est de devenir un leader mondial dans le domaine du divertissement numérique en créant des jeux de qualité qui divertissent les joueurs du monde entier.</p>
+          <img src="{{url_for('static',filename='images/graphique.png')}}" alt="">
+        </section>
+        <section class="content">
+          <h2 class="logo-text"><span>Notre</span>-histoire</h2>
+          <p>Gamesoft a été fondée en 2008 par un groupe de passionnés de jeux qui ont décidé de créer leur propre studio de jeux. Depuis lors, nous avons grandi et nous sommes devenus une équipe de plus de 100 personnes, mais nous sommes toujours aussi passionnés par les jeux et nous nous efforçons de créer des jeux de qualité qui divertissent les joueurs du monde entier.</p>
+          <img src="{{url_for('static',filename='images/bureau.jpg')}}" alt="">
+        </section>
+      </div>
+      <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
+     
+</body>
+
+
+<footer>
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h1 class="logo-text"><span>Game</span>soft</h1>
+        <p>
+          Copiright &copy; tous droits réserver; <br> <a href="https://www.facebook.com/kevin.brotons.7/">Kevin Brotons</a> <br>
+        </p>
+        </div>
+        </div>
+        <div class="contact">
+          <h3>Contact</h3>
+          <span class="phone"><i class="bx bxs-phone"></i> &nbsp; 06 35 38 38 89</span>
+          <span class="mail"><i class="bx bxs-envelope"></i> &nbsp; kevinbrotons@outlook.fr </span>
+        </div>
+        </div>
+</footer>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

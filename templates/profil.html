@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profil.css') }}">
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <title>Document</title>
+    </head>
+<header>
+    <nav class="navbar">
+        <div class="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <ul class="menu" onclick="closeMenu()">
+          <li><a href="{{ url_for('home') }}" onclick="closeMenu()">Home</a></li>
+          <li><a href="{{ url_for('game') }}" onclick="closeMenu()">Games</a></li>
+          <li><a href="{{ url_for('about') }}" onclick="closeMenu()">About</a></li>
+          <li><a href="{{ url_for('contact') }}" onclick="closeMenu()">Contact</a></li>
+        </ul>        
+        <span class="close"></span>
+      </nav>
+      <div class="overlay"></div>
+      <div class="header">
+          <div class="Logo">
+            <img href="home.html" src="{{ url_for('static', filename='images/gamesoft-logo-header-1.png') }}"alt="">
+            <div class="social-links">
+              <a href="https://www.facebook.com/GoGamesoft/"><i class="bx bxl-facebook-circle"></i></a>
+              <a href="https://twitter.com/gamesoft"><i class="bx bxl-twitter" ></i></a>
+              <a href="https://www.instagram.com/gogamesoft/"><i class="bx bxl-instagram" ></i></a>
+              <a href="https://www.pinterest.co.uk/gamesoft/"><i class="bx bxl-pinterest-alt" ></i></a>
+            </div>
+  
+            <div class="btn-box">
+              {% if 'username' in session %}
+    <a href="{{ url_for('get_profile') }}" class="profil">{{ session['username'] }}</a>
+    {% if session['group'] == 'admin' or session['group'] == 'redacchef' or session['group'] == 'redac' %}
+        <a href="{{ url_for('admin') }}" class="admin">Admin</a>
+    {% endif %}
+    <form action="{{ url_for('logout') }}" method="POST">
+        <button class="Login" type="submit">Déconnexion</button>
+    </form>
+{% else %}
+    <!-- L'utilisateur n'est pas connecté, afficher le bouton de connexion -->
+    <a href="{{ url_for('login') }}" class="Login">login</a>
+{% endif %}
+          </div>
+           
+            </div>
+          </div>
+      
+  </header>
+<body>
+  <div class="container">
+    <div class="box">
+      <h1 class="logo-text">Mon compte</h1>
+    </div>
+  
+    <div class="table">
+      <div class="nav">
+        <h3>Navigation</h3>
+        <div class="nav-box">
+          <button class="nav-btns" id="account-btn" onclick="openProfile()">Mon Profil</button>
+        </div>
+        <div class="nav-box">
+          <button class="nav-btns" id="favori-btn" onclick="openFavori()">Favoris</button>
+        </div>
+        <div class="nav-box">
+          <button class="nav-btns" id="messagerie-btn" onclick="openFavori()">messagerie</button>
+        </div>
+      </div>
+      <div class="item" id="content">
+        <!-- Contenu du profil -->
+        <div class="profil-container" id="profil-container">
+          <!-- Ajoutez ici les informations du profil de l'utilisateur -->
+          <h2>Profil Utilisateur</h2>
+          <div class="btn-box-2">
+          <button class="edit" id="edit-btn">Modifier la Photo</button>
+          </div>
+          <p class="photo" id="displayedPhoto" style="background-image: url('{{ url_for('static', filename='photos/' + user.photo) }}')">
+            {% if user.photo %}
+            <img src="{{ url_for('static', filename='photos/' + user.photo) }}" alt="Photo de profil">
+        {% else %}
+            <!-- Afficher une image par défaut si l'utilisateur n'a pas de photo -->
+            <img src="{{ url_for('static', filename='photos/default.jpg') }}" alt="Photo de profil par défaut">
+        {% endif %}
+          </p>
+          <p class="user" id="username">Nom d'utilisateur : {{ user.username }}</p>
+          <p class="email" id="email">Email : {{ user.email }}</p>
+          <p class="group" id="group">Groupe : {{ user.group }}</p>
+          <p class="date" id="created_at">Compte créé le : {{ user.creation_date.strftime("%d-%m-%Y %H:%M:%S") }}</p>
+          <form class="password" id="change-password-form" onsubmit="changePassword(event)">
+              <input  class="current" type="password" name="current_password" placeholder="Mot de passe actuel" required>
+              <input  class="new" type="password" name="new_password" placeholder="Nouveau mot de passe" required>
+              <input  class="confirm" type="password" name="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
+              <button class="submit"  type="submit">Changer le mot de passe</button>
+          </form>
+          <!-- Ajoutez d'autres informations du profil ici -->
+      </div>
+      
+      <div class="favori" id="favori-container">
+        <div class="favori-content">
+
+          
+            <table class="favorite-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Genre</th>
+                        <th>Plateforme</th>
+                        <th>Suppression</th>
+                    </tr>
+                </thead>
+
+                <tbody id="favorite-games-table-body">
+                    {% for game in user.favorite_games %}
+                        <tr>
+                            <td>{{ game.id }}</td>
+                            <td>{{ game.title }}</td>
+                            <td>{{ game.description }}</td>
+                            <td>{{ game.genre }}</td>
+                            <td>{{ game.platform }}</td>
+                           
+                            <td>
+                              <form action="/remove_favorite" method="POST">
+                                <!-- Champs du formulaire (par exemple, l'ID du jeu à supprimer) -->
+                                <input type="hidden" name="game_id" value="{{ game.id }}">
+                                <!-- Bouton pour soumettre le formulaire -->
+                                
+                              </form>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                
+            </table>
+        </div>
+    </div>
+    </div>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/profil.js') }}"></script>
+</body>
+</html>
