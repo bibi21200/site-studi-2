@@ -6,9 +6,9 @@
 :root{
   --global-color: #1a202c;
   --text-color: #000000;
-  --global-menu-color: #e95b2f;
+  --global-menu-color: #e60fee;
   --global-text-color: #ffffff;
-  --global-menu-hover-color: #b7fa00;
+  --global-menu-hover-color: #0de8f3;
   --box-color:  #323d53;
   --box-shadow-color:  #8a8ca1;
 }
